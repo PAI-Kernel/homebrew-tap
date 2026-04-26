@@ -5,12 +5,20 @@ constitutional governance runtime for AI systems implementing the PAI-CD framewo
 
 ## Status
 
-🟡 **Early preview · invitation-only distribution.**
+🟡 **Pre-release (v2.2.1) · early-preview distribution.**
 
 The PAI-Kernel SDK is currently at **v2.2.1** (April 2026 · first public release).
-This tap will track stable releases as they ship.
+This is a source-build distribution — Homebrew compiles the binary from source
+via Cargo on install. Pre-compiled platform binaries ship in **v2.2.2**
+(estimated mid-May 2026 · ~3 weeks from v2.2.1).
 
-## Installation
+If you need a faster install path before v2.2.2 ships, use the
+[install script](#alternative-installation-paths) below.
+
+## Installation (current · v2.2.1 · source build)
+
+Requires Rust toolchain (Homebrew auto-installs as build dependency).
+Build time: typically 5–10 minutes on modern hardware.
 
 ```bash
 brew tap PAI-Kernel/tap
@@ -25,16 +33,11 @@ brew install PAI-Kernel/tap/pai-kernel
 
 ## What gets installed
 
-- `pai_governance_daemon` binary — HTTP governance API server (axum-based · default bind `127.0.0.1:9100`)
+- `pai_governance_daemon` binary — HTTP governance API server
+  (axum-based · default bind `127.0.0.1:9100`)
 - Default configuration template (`pai-kernel.toml`)
 - Constitutional policies (Rego files)
 - Documentation (`INSTALL.md`, `KNOWN_LIMITATIONS.md`, license files)
-
-## Build details
-
-This tap currently builds from source via Cargo (requires Rust toolchain · auto-installed by Homebrew dependency declaration). Build time: typically 5-10 minutes on modern hardware.
-
-Pre-compiled platform binary distribution (faster install · no Rust required) is planned for the v2.2.2 patch release. The formula will be updated to download pre-built binaries once they ship.
 
 ## After install
 
@@ -47,17 +50,31 @@ pai_governance_daemon init
 pai_governance_daemon --config $(brew --prefix)/share/pai-kernel/pai-kernel.toml
 ```
 
-Default bind: `127.0.0.1:9100`. HTTP API surface documented in [pai-kernel/docs/INSTALL.md](https://github.com/PAI-Kernel/pai-kernel/blob/main/docs/INSTALL.md).
+Default bind: `127.0.0.1:9100`.
+HTTP API surface documented in
+[pai-kernel/docs/INSTALL.md](https://github.com/PAI-Kernel/pai-kernel/blob/main/docs/INSTALL.md).
 
 ## Alternative installation paths
 
-If Homebrew is unavailable or build-from-source is impractical:
+### Install script (no Homebrew · no Rust required)
 
 ```bash
-# crates.io (Rust toolchain required)
-cargo install pai_kernel
+curl -fsSL https://paikernel.org/install.sh | sh
+```
 
-# Docker (no Rust required)
+Operational since v2.2.1 launch · downloads release artifact directly.
+Fastest path until v2.2.2 ships pre-compiled platform binaries through
+this tap.
+
+### crates.io (Rust toolchain required)
+
+```bash
+cargo install pai_kernel
+```
+
+### Docker (no Rust required)
+
+```bash
 docker pull ghcr.io/pai-kernel/pai-kernel:v2.2.1
 docker run -p 9100:9100 ghcr.io/pai-kernel/pai-kernel:v2.2.1
 ```
@@ -68,6 +85,16 @@ docker run -p 9100:9100 ghcr.io/pai-kernel/pai-kernel:v2.2.1
 brew update
 brew upgrade pai-kernel
 ```
+
+## What changes in v2.2.2
+
+- Pre-compiled platform binaries (Intel/Apple Silicon macOS · Linux x86_64/arm64)
+- `brew install` becomes binary download (no Rust dependency · ~10 second install)
+- Documentation site at [paikernel.org/corpus/latest/](https://paikernel.org/corpus/latest/) (mdBook)
+- 5 transitive-dependency CVE patches included
+- Cross-workspace consistency fixes
+
+ETA: mid-May 2026 (~3 weeks from v2.2.1 · April 26, 2026 launch).
 
 ## Reporting issues
 
@@ -91,7 +118,7 @@ See [main repository](https://github.com/PAI-Kernel/pai-kernel) for full license
 ## Links
 
 - **Main project:** <https://github.com/PAI-Kernel/pai-kernel>
-- **Documentation:** <https://corpus.paikernel.org>
+- **Install script:** <https://paikernel.org/install.sh>
 - **Citation (SSRN):** <https://doi.org/10.2139/ssrn.6512218>
 - **Citation (Zenodo · concept):** <https://doi.org/10.5281/zenodo.19151899>
 
