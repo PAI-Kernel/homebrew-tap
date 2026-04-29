@@ -3,9 +3,9 @@
 # PAI-Kernel Homebrew Formula
 #
 # Builds pai_governance_daemon binary from source via Cargo (requires Rust).
-# v2.2.1 binary distribution path · cargo-source build (Day 0 functional).
-# v2.2.2+ may switch к pre-compiled binary downloads after release pipeline
-# attaches platform binaries.
+# v2.2.3 binary distribution path · cargo-source build (Day 0 functional).
+# Future versions may switch к pre-compiled binary downloads after release
+# pipeline attaches platform binaries.
 #
 # Maintenance:
 #   - On new release: update `url` + `sha256` (compute via:
@@ -15,10 +15,10 @@
 class PaiKernel < Formula
   desc "Constitutional governance runtime for AI systems (PAI-CD framework)"
   homepage "https://github.com/PAI-Kernel/pai-kernel"
-  url "https://github.com/PAI-Kernel/pai-kernel/archive/refs/tags/v2.2.1.tar.gz"
-  sha256 "7c88ae50652b52a0e5ecc13aa9c6f58dd6310ebab7535278523e7e9207fb61ab"
+  url "https://github.com/PAI-Kernel/pai-kernel/archive/refs/tags/v2.2.3.tar.gz"
+  sha256 "e358058d844631e07df3fcf36378a7468874cb06a91b83d54d0a628c63a91b34"
   license any_of: ["MIT", "Apache-2.0"]
-  version "2.2.1"
+  version "2.2.3"
 
   head "https://github.com/PAI-Kernel/pai-kernel.git", branch: "main"
 
@@ -47,11 +47,20 @@ class PaiKernel < Formula
     <<~EOS
       PAI-Kernel v#{version} installed.
 
+      Environment setup (REQUIRED · fail-closed default since v2.2.3):
+        export PAI_AUTHOR_API_KEY="<your-api-key>"
+        export PAI_AUTHOR_SIGNING_KEY="<32-byte-hex-or-64-char>"
+      See #{doc}/INSTALL.md §5.2 for key generation guide.
+
+      For demonstration only (NOT production):
+        pai_governance_daemon --demo
+      Forces 127.0.0.1 bind · ephemeral keys · prints warnings.
+
       To initialize a working directory with default config + policies:
         cd /path/to/work
         pai_governance_daemon init
 
-      To run with the shipped default config:
+      To run with the shipped default config (after env setup):
         pai_governance_daemon --config #{pkgshare}/pai-kernel.toml
 
       Default bind address: 127.0.0.1:9100
