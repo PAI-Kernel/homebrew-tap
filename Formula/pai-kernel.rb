@@ -16,9 +16,9 @@ class PaiKernel < Formula
   desc "Constitutional governance runtime for AI systems (PAI-CD framework)"
   homepage "https://github.com/PAI-Kernel/pai-kernel"
   url "https://github.com/PAI-Kernel/pai-kernel/archive/refs/tags/v2.2.3.tar.gz"
+  version "2.2.3"
   sha256 "e358058d844631e07df3fcf36378a7468874cb06a91b83d54d0a628c63a91b34"
   license any_of: ["MIT", "Apache-2.0"]
-  version "2.2.3"
 
   head "https://github.com/PAI-Kernel/pai-kernel.git", branch: "main"
 
@@ -37,7 +37,9 @@ class PaiKernel < Formula
     # Documentation
     doc.install "README.md" if (buildpath/"README.md").exist?
     doc.install "docs/INSTALL.md" => "INSTALL.md" if (buildpath/"docs/INSTALL.md").exist?
-    doc.install "docs/KNOWN_LIMITATIONS.md" => "KNOWN_LIMITATIONS.md" if (buildpath/"docs/KNOWN_LIMITATIONS.md").exist?
+    if (buildpath/"docs/KNOWN_LIMITATIONS.md").exist?
+      doc.install "docs/KNOWN_LIMITATIONS.md" => "KNOWN_LIMITATIONS.md"
+    end
     doc.install "LICENSE" if (buildpath/"LICENSE").exist?
     doc.install "LICENSE-MIT" if (buildpath/"LICENSE-MIT").exist?
     doc.install "LICENSE-APACHE" if (buildpath/"LICENSE-APACHE").exist?
