@@ -16,7 +16,6 @@ class PaiKernel < Formula
   desc "Constitutional governance runtime for AI systems (PAI-CD framework)"
   homepage "https://github.com/PAI-Kernel/pai-kernel"
   url "https://github.com/PAI-Kernel/pai-kernel/archive/refs/tags/v2.2.3.tar.gz"
-  version "2.2.3"
   sha256 "e358058d844631e07df3fcf36378a7468874cb06a91b83d54d0a628c63a91b34"
   license any_of: ["MIT", "Apache-2.0"]
 
