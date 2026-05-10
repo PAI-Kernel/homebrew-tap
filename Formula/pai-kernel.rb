@@ -49,17 +49,19 @@ class PaiKernel < Formula
       PAI-Kernel v#{version} installed.
 
       Environment setup (REQUIRED · fail-closed default since v2.2.3):
-        export PAI_AUTHOR_API_KEY="<your-api-key>"
-        export PAI_AUTHOR_SIGNING_KEY="<32-byte-hex-or-64-char>"
-      See #{doc}/INSTALL.md §5.2 for key generation guide.
+        export PAI_AUTHOR_API_KEY="$(uuidgen)"
+        export PAI_AUTHOR_SIGNING_KEY="$(openssl rand -hex 32)"
+      See #{doc}/INSTALL.md § Configuration for persistence + key management.
 
-      For demonstration only (NOT production):
+      Quick browser test (NO env setup required):
         pai_governance_daemon --demo
-      Forces 127.0.0.1 bind · ephemeral keys · prints warnings.
+      Forces 127.0.0.1:9100 bind · ephemeral keys · prints WARNINGs.
+      Then: curl http://127.0.0.1:9100/api/v1/health
 
       To initialize a working directory with default config + policies:
-        cd /path/to/work
+        mkdir -p ~/pai-kernel-work && cd ~/pai-kernel-work
         pai_governance_daemon init
+      (Replace ~/pai-kernel-work with your preferred path.)
 
       To run with the shipped default config (after env setup):
         pai_governance_daemon --config #{pkgshare}/pai-kernel.toml
@@ -70,6 +72,7 @@ class PaiKernel < Formula
       distribution. See #{doc}/KNOWN_LIMITATIONS.md for the scope statement.
 
       Documentation:
+        - Install guide: https://github.com/PAI-Kernel/pai-kernel/blob/main/docs/INSTALL.md
         - Framework: https://corpus.paikernel.org
         - Repository: https://github.com/PAI-Kernel/pai-kernel
         - Citation (SSRN): https://doi.org/10.2139/ssrn.6512218
